@@ -190,9 +190,9 @@ jobs:
     name: Create release and upload artifacts
     needs:
       - build-windows
-      - build-linux
-      - build-mac-x86
-      - build-mac-arm64
+      # - build-linux
+      # - build-mac-x86
+      # - build-mac-arm64
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
@@ -223,8 +223,6 @@ jobs:
           chmod +x pyuploadtool-x86_64.AppImage
           ./pyuploadtool-x86_64.AppImage \
           **build-win/*.dll \
-          **build-linux/*.so \
-          **build-mac/*.dylib
 
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -236,5 +234,3 @@ jobs:
           tag_name: ${{ steps.tag.outputs.tag }}
           files: |
             **build-win/*.dll
-            **build-linux/*.so
-            **build-mac/*.dylib
